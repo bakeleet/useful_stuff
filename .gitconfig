@@ -1,0 +1,46 @@
+
+[color]
+	ui = true
+[core]
+	longpaths = true
+	pager = diff-so-fancy | less --tabs=4 -RFX
+	editor = nano
+	# autocrlf = input
+	# safecrlf = true
+[alias]
+	st = status --short --branch
+	last = log -1 HEAD
+	ac = commit -am
+	g = grep --extended-regexp --break --heading --line-number
+	search = log --no-merges -i -E --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --grep
+	lga = ! git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always
+	lgn = ! git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always
+	lg = ! git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always -$1 | cat && printf '\n'
+	lg5 = ! git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always -5 | cat && printf '\n'
+	lg10 = ! git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always -10 | cat && printf '\n'
+	amend = commit --amend -C HEAD
+	unstage = reset HEAD .
+	last-patch = format-patch HEAD^
+	co = checkout
+	aliases = config --get-regexp '^alias\\.'
+	create-pull-request = !sh -c 'stash pull-request $0 $@'
+	ref = "!sh -c 'f() { str='~$1'; if [ $str == ~ ]; then str=''; fi; git rev-parse HEAD$str; }; f'"
+	cpr = "!sh -c 'f() { str='~$1'; if [ $str == ~ ]; then str=''; fi; git rev-parse HEAD$str; }; f | tr -d \"\n\" | pbcopy && echo \"Copied SHA!\"'"
+	shls = stash list
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[merge]
+	renormalize = false
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
